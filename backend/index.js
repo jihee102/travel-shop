@@ -1,32 +1,32 @@
-const express = require("express");
+const express = require('express');
 const app = express();
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const path = require('path');
-const config = require("./config/key");
+const config = require('./server/config/key');
 const port = process.env.PORT || 5000;
 
-const { User } = require("./models/user");
-const { auth } = require("./middleware/auth");
-
+const { User } = require('./server/models/user');
+const { auth } = require('./server/middleware/auth');
 
 const connect = mongoose
   .connect(config.mongoURI, {
+    dbName: 'myFirstDatabase',
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
     useFindAndModify: false,
   })
-  .then(() => console.log("MongoDB connected."))
+  .then(() => console.log('MongoDB connected.'))
   .catch((err) => console.log(err));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use('/uploads', express.static('uploads'));
-app.use('/api/user', require('./routes/userRoute'));
-app.use('/api/product', require('./routes/product'));
+app.use('/api/user', require('./server/routes/userRoute'));
+app.use('/api/product', require('./server/routes/product'));
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
@@ -41,5 +41,5 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.listen(port, () => {
-  console.log("Server is running on " + port);
+  console.log('Server is running on ' + port);
 });
