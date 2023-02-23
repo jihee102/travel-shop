@@ -28,26 +28,19 @@ function LandingPage(props) {
   }, []);
 
   const getProducts = (variable) => {
-    const url = `${PRODUCT_SERVER}/getProducts`;
-    axios
-      .post(url, variable, {
-        headers: {
-          'content-type': 'application/json',
-        },
-      })
-      .then((response) => {
-        if (response.data.success) {
-          if (variable.loadMore) {
-            setProducts([...products, ...response.data.products]);
-          } else {
-            console.log(response);
-            setProducts(response.data.products);
-          }
-          setPostSize(response.data.postSize);
+    axios.post('api/product/getProducts', variable).then((response) => {
+      if (response.data.success) {
+        if (variable.loadMore) {
+          setProducts([...products, ...response.data.products]);
         } else {
-          alert('Failed to fetch product data');
+          console.log(response);
+          setProducts(response.data.products);
         }
-      });
+        setPostSize(response.data.postSize);
+      } else {
+        alert('Failed to fetch product data');
+      }
+    });
   };
 
   const onLoadMore = () => {

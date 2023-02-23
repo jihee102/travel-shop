@@ -14,9 +14,10 @@ function ImageSlider(props) {
     <div>
       <Carousel autoplay>
         {props.images.map((img, index) => {
+          console.log(img);
           return (
             <div key={index}>
-              <img className='image' src={`${url}${img}`} alt='product-img' />
+              <img className='image' src={`${img}`} alt='product-img' />
             </div>
           );
         })}

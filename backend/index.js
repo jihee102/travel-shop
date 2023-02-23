@@ -29,20 +29,11 @@ app.use('/uploads', express.static('uploads'));
 app.use('/api/user', require('./server/routes/userRoute'));
 app.use('/api/product', require('./server/routes/product'));
 
-const corsOptions = {
-  origin: '*',
-  credentials: true,
-};
-app.use(cors(corsOptions));
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader(
-    'Access-Control-Allow-Methods',
-    'OPTIONS, GET, POST, PUT, PATCH, DELETE'
-  );
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  next();
-});
+// const corsOptions = {
+//   origin: '*',
+//   credentials: true,
+// };
+// app.use(cors(corsOptions));
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
