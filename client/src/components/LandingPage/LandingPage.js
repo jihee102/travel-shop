@@ -29,7 +29,7 @@ function LandingPage(props) {
 
   const getProducts = (variable) => {
     const url = PRODUCT_SERVER + '/getProducts';
-    axios.post('/cors-proxy/' + url, variable).then((response) => {
+    axios.post(url, variable).then((response) => {
       if (response.data.success) {
         if (variable.loadMore) {
           setProducts([...products, ...response.data.products]);

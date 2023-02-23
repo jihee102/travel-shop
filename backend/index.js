@@ -22,14 +22,17 @@ const connect = mongoose
   .then(() => console.log('MongoDB connected.'))
   .catch((err) => console.log(err));
 
+app.use(
+  cors({
+    origin: '*',
+  })
+);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use('/uploads', express.static('uploads'));
 app.use('/api/user', require('./server/routes/userRoute'));
 app.use('/api/product', require('./server/routes/product'));
-
-app.use(cors());
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
