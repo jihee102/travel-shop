@@ -29,11 +29,7 @@ app.use('/uploads', express.static('uploads'));
 app.use('/api/user', require('./server/routes/userRoute'));
 app.use('/api/product', require('./server/routes/product'));
 
-// const corsOptions = {
-//   origin: '*',
-//   credentials: true,
-// };
-// app.use(cors(corsOptions));
+app.use(cors());
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
