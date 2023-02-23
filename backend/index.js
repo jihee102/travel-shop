@@ -4,14 +4,13 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const path = require('path');
-const config = require('./server/config/key');
 const port = process.env.PORT || 5000;
 
 const { User } = require('./server/models/user');
 const { auth } = require('./server/middleware/auth');
 
 const connect = mongoose
-  .connect(process.env.mongoURI, {
+  .connect(process.env.MONGO_URI, {
     dbName: 'myFirstDatabase',
     useNewUrlParser: true,
     useUnifiedTopology: true,
