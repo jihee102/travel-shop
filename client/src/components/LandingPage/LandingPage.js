@@ -9,6 +9,7 @@ import CheckBoxComponent from './section/CheckBoxComponent';
 import RadioBox from './section/RadioBox';
 import { price, continents } from './section/Data';
 import SearchCompnent from './section/SearchCompnent';
+import { PRODUCT_SERVER } from '../../Config';
 
 function LandingPage(props) {
   const [products, setProducts] = useState([]);
@@ -27,19 +28,26 @@ function LandingPage(props) {
   }, []);
 
   const getProducts = (variable) => {
-    axios.post('/api/product/getProducts', variable).then((response) => {
-      if (response.data.success) {
-        if (variable.loadMore) {
-          setProducts([...products, ...response.data.products]);
+    const url = `${PRODUCT_SERVER}/getProducts`;
+    axios
+      .post(url, variable, {
+        headers: {
+          'content-type': 'application/json',
+        },
+      })
+      .then((response) => {
+        if (response.data.success) {
+          if (variable.loadMore) {
+            setProducts([...products, ...response.data.products]);
+          } else {
+            console.log(response);
+            setProducts(response.data.products);
+          }
+          setPostSize(response.data.postSize);
         } else {
-          console.log(response);
-          setProducts(response.data.products);
+          alert('Failed to fetch product data');
         }
-        setPostSize(response.data.postSize);
-      } else {
-        alert('Failed to fetch product data');
-      }
-    });
+      });
   };
 
   const onLoadMore = () => {
