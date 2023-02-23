@@ -5,13 +5,22 @@ The web project is built on the React framework.
 
 ## Getting started
 
+### Backend
+
 ```bash
+cd backend
 npm install
 
+npm run start
+```
+
+### Frontend
+
+```bash
 cd client
 npm install
 
-npm run dev
+npm run start
 ```
 
 ## Live Demo
